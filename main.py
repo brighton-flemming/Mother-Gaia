@@ -39,6 +39,17 @@ try:
 
     # Update Records.
     user_to_update = session.query(User).filter_by(username='new_user').first()
+    if user_to_update:
+        user_to_update.email = 'updated_email@example.com'
+        session.commit()
+        print("User's email updated")
+
+    # Delete Records.
+    user_to_delete = session.query(User).filter_by(username='new_user').first()
+    if user_to_delete:
+        session.delete(user_to_delete)
+        session.commit()
+        print("User deleted!")
 
 except Exception as e:
     print("Error:", str(e))
