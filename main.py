@@ -35,10 +35,10 @@ try:
     users = session.query(User).all()
     print("All Userd:")
     for user in users:
-        print(f"User ID: {user.id}, Username: {user.username}, Email: {user.email}")
+        print(f"User ID: {user.id}, Username: {user.username}, Age: {user.age},  Email: {user.email}")
 
     # Insert Methods.
-    new_user = User(username='new_user', email='new_user@example.com')
+    new_user = User(username='new_user', age= 24 ,email='new_user@example.com')
     session.add(new_user)
     session.commit()
     print("New user added with ID:", new_user.id)
