@@ -47,6 +47,11 @@ try:
              {'username': 'GaiaGuardian', 'age': 67, 'email' : 'guardian@hobbit.com'},
               {'username': 'NatureLover', 'age': 45, 'email' : 'nature@hobbit.com'},
                {'username': 'Steve Jobless', 'age': 79, 'email' : 'steve@hobbit.com'},
+                {'username': 'Patrick Tentacles', 'age': 52, 'email' : 'tentacles@hobbit.com'},
+                 {'username': 'Elon Tusk', 'age': 30, 'email' : 'tusk@hobbit.com'},
+                  {'username': 'Eric Myers', 'age': 14, 'email' : 'myers@hobbit.com'},
+                   {'username': 'Slim Jim', 'age': 22, 'email' : 'slim@hobbit.com'},
+                
     ]
 
     for data in users_data:
@@ -54,9 +59,7 @@ try:
         session.add(new_user)
         session.commit()
 
-    users = session.query
-
-
+  
     # Query Methods.
     users = session.query(User).all()
     print("All Users:")
