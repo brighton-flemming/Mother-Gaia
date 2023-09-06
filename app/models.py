@@ -20,5 +20,9 @@ class Bottle(Base):
 
     user = relationship('User', back_populates='bottles')
 
-
+class Tree(Base):
+    __tablename__ = 'bottles'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    trees_planted = Column(Integer, nullable=False, default=0)
 
