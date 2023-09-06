@@ -28,7 +28,7 @@ class Bottle(Base):
     UniqueConstraint('users.id', 'bottles_recycled', name='unique_user_bottles')
 
 class Tree(Base):
-    __tablename__ = 'bottles'
+    __tablename__ = 'trees'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     trees_planted = Column(Integer, nullable=False, default=0)

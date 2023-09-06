@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models import Base, User, Tree, Bottle, Recommendation
+from app.models import  User, Tree, Bottle, Recommendation
 import argparse
 
 def parse_args():
