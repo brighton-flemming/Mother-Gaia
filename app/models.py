@@ -42,7 +42,7 @@ class Recommendation(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     recommendation_text = Column(Text, nullable=False)
 
-    user = relationship('User', back_populates='trees')
+    user = relationship('User', back_populates='recommendations')
 
 
 
