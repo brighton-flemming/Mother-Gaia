@@ -130,21 +130,24 @@ try:
 
     # Calculate and display bottle statistics
     bottle_data = [
-    {'user_id' : 1, 'action' :'recycled'},
-    {'user_id' : 2, 'action':'disposed'},
-   {'user_id' :  4, 'action':'recycled'},
-    {'user_id' : 4 , 'action':'recycled'},
-    {'user_id' : 3, 'action':'disposed'},
-    {'user_id' : 7, 'action':'recycled'},
-    {'user_id' : 5, 'action':'recycled'},
-    {'user_id' : 6, 'action':'recycled'},
-    {'user_id' : 5, 'action':'disposed'},
-    {'user_id' :8, 'action':'recycled'},
-   {'user_id' : 1, 'action':'disposed'},
-   {'user_id' : 3, 'action':'disposed'},
+    {'user_id' : 1, 'action' :'recycled', 'bottles_recycled': 49},
+    {'user_id' : 2, 'action':'disposed', 'bottles_recycled': -32},
+   {'user_id' :  4, 'action':'recycled', 'bottles_recycled': 12},
+    {'user_id' : 4 , 'action':'recycled','bottles_recycled': 38},
+    {'user_id' : 3, 'action':'disposed', 'bottles_recycled': -9},
+    {'user_id' : 7, 'action':'recycled', 'bottles_recycled': 234},
+    {'user_id' : 5, 'action':'recycled', 'bottles_recycled': 50},
+    {'user_id' : 6, 'action':'recycled', 'bottles_recycled': 67},
+    {'user_id' : 5, 'action':'disposed', 'bottles_recycled': -73},
+    {'user_id' :8, 'action':'recycled', 'bottles_recycled': 24},
+   {'user_id' : 1, 'action':'disposed', 'bottles_recycled': -90},
+   {'user_id' : 3, 'action':'disposed','bottles_recycled': -101},
     ]
 
-    
+    for data in bottle_data:
+        new_data = Bottle(action=data['action'], bottles_recycled=data['bottles_recycled'])
+        session.add(new_data)
+        session.commit()
 
     bottle_stats = calculate_bottle_statistics(session, user_id)
     print("\nBottle Statistics:")

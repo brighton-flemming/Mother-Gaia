@@ -21,6 +21,7 @@ class Bottle(Base):
 
     id = Column(Integer, primary_key=True)
     user_id =  Column(Integer, ForeignKey('users.id'), nullable=False)
+    action = Column(String, nulllable=False)
     bottles_recycled = Column(Integer, nullable=False, default=0)
 
     users = relationship('User', back_populates='bottles')
