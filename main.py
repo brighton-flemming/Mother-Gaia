@@ -99,26 +99,28 @@ try:
         print("User deleted!")
 
     # Calculate and display tree statistics
+    trees_data = [
+     {'user_id':  4, 'action':'planted', 'trees_planted': 13},
+     {'user_id':  2, 'action':'planted','trees_planted': 7},
+     {'user_id':  3, 'action':'cut down', 'trees_planted': -9},
+     {'user_id':  1, 'action':'planted', 'trees_planted': 21},
+     {'user_id':  1, 'action':'cut down', 'trees_planted':-1},
+     {'user_id':  5, 'action':'planted', 'trees_planted': 11},
+     {'user_id':  7, 'action':'planted', 'trees_planted': 34},
+     {'user_id':  4, 'action':'planted', 'trees_planted': 27},
+     {'user_id':  3, 'action':'cut down', 'trees_planted': -54},
+     {'user_id':  5, 'action':'cut down', 'trees_planted': -400},
+     {'user_id':  2, 'action':'planted', 'trees_planted': 640},
+     {'user_id':  4, 'action':'planted', 'trees_planted': 71},
+     {'user_id':  1, 'action':'cut down','trees_planted': -89},
+ ]
 
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
-    tree1 = Tree(user_id=1, action='planted')
+    user_id = data['user_id']
+    for data in trees_data:
+        new_data = Tree(action=data['action'], trees_planted=data['trees_planted'])
+        session.add(new_data)
+        session.commit()
 
-
-
-
-
-    user_id = 1
     tree_stats = calculate_tree_statistics(session, user_id)
     print("\nTree Statistics:")
     print(f"Trees Planted: {tree_stats['trees_planted']}")
@@ -127,22 +129,22 @@ try:
     print(f"Message: {tree_stats['message']}")
 
     # Calculate and display bottle statistics
+    bottle_data = [
+    {'user_id' : 1, 'action' :'recycled'},
+    {'user_id' : 2, 'action':'disposed'},
+   {'user_id' :  4, 'action':'recycled'},
+    {'user_id' : 4 , 'action':'recycled'},
+    {'user_id' : 3, 'action':'disposed'},
+    {'user_id' : 7, 'action':'recycled'},
+    {'user_id' : 5, 'action':'recycled'},
+    {'user_id' : 6, 'action':'recycled'},
+    {'user_id' : 5, 'action':'disposed'},
+    {'user_id' :8, 'action':'recycled'},
+   {'user_id' : 1, 'action':'disposed'},
+   {'user_id' : 3, 'action':'disposed'},
+    ]
 
-    bottle1 = Bottle(user_id=1, action='recycled')
-    bottle2 = Bottle(user_id=2, action='disposed')
-    bottle3 = Bottle(user_id=4, action='recycled')
-    bottle4 = Bottle(user_id=4, action='recycled')
-    bottle5 = Bottle(user_id=3, action='disposed')
-    bottle6 = Bottle(user_id=7, action='recycled')
-    bottle7 = Bottle(user_id=5, action='recycled')
-    bottle8 = Bottle(user_id=6, action='recycled')
-    bottle9 = Bottle(user_id=5, action='disposed')
-    bottle10 = Bottle(user_id=8, action='recycled')
-    bottle11 = Bottle(user_id=1, action='disposed')
-    bottle12 = Bottle(user_id=3, action='disposed')
-
-    session.add_all([bottle1, bottle2, bottle3, bottle4, bottle5, bottle6, bottle7, bottle8, bottle9])
-    session.commit()
+    
 
     bottle_stats = calculate_bottle_statistics(session, user_id)
     print("\nBottle Statistics:")

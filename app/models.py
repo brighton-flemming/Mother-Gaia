@@ -31,6 +31,7 @@ class Tree(Base):
     __tablename__ = 'trees'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    action = Column(String,  nullable=True)
     trees_planted = Column(Integer, nullable=False, default=0)
 
     users = relationship('User', back_populates='trees')
