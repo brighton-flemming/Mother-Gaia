@@ -26,6 +26,9 @@ session = Session()
 try:
 
     users = session.query(User).all()
+    print("All Userd:")
+    for user in users:
+        print(f"User ID: {user.id}, Username: {user.username}, Email: {user.email}")
 
 except Exception as e:
     print("Error:", str(e))
