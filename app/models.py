@@ -9,7 +9,10 @@ class User(Base):
     username = Column(String(50), nullable=False, unique=True)
     age = Column(Integer, nullable=False,unique=True)
     email = Column(String, nullable=True)
+
     bottles = relationship('Bottle', back_populates='user')
+    trees = relationship('Tree', back_populates='user')
+    recommendations = relationship('Recommendation', back_populates='user')
 
 class Bottle(Base):
     __tablename__ = 'bottles'
