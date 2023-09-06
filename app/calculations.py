@@ -1,5 +1,5 @@
 
-from app.models import User, Tree
+from app.models import User, Tree, Bottle
 from sqlalchemy.orm import Session
 
 def calculate_tree_statistics(session:Session, user_id: int) -> dict:
@@ -14,3 +14,9 @@ def calculate_tree_statistics(session:Session, user_id: int) -> dict:
     }
 
     return trees_statistics
+
+def calculate_bottle_statistics(session:Session, user_id: int) -> dict:
+
+    bottles_recycled = session.query('Bottle').filter_by(user_id=user_id, action='recycled').count()
+    bottles_disposed = session.query('Bottle').filter_by(user_id=user_id, action='disposed').count()
+    
