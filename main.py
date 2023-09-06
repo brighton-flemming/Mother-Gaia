@@ -5,6 +5,15 @@ from app.calculations import calculate_bottle_statistics, calculate_tree_statist
 import argparse
 from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
+engine = create_engine('sqlite:///user.db')
+Base.metadata.create_all(engine)
+
+User.metadata.create_all(engine)
+Tree.metadata.create_all(engine)
+Bottle.metadata.create_all(engine)
+Recommendation.metadata.create_all(engine)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Mother Gaia CLI')
@@ -23,11 +32,9 @@ elif env_mode == 'test':
     database_uri = 'sqlite:///test_user.db'
 
 engine = create_engine(database_uri)
-Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
 
-Base.metadata.create_all(engine)
 
 try:
     
