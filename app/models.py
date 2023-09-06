@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from . import Base
 
@@ -33,7 +33,7 @@ class Recommendations(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    recommendation_text = Column(String(200), nullable=False)
+    recommendation_text = Column(Text, nullable=False)
 
     user = relationship('User', back_populates='trees')
 
