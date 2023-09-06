@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
-from . import Base
+from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
 class User(Base):
     __tablename__ = 'users'
 
@@ -16,6 +17,7 @@ class User(Base):
 
 class Bottle(Base):
     __tablename__ = 'bottles'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     user_id =  Column(Integer, ForeignKey('users.id'), nullable=False)
@@ -33,7 +35,7 @@ class Tree(Base):
 
     user = relationship('User', back_populates='trees')
 
-class Recommendations(Base):
+class Recommendation(Base):
     __tablename__ = 'recommendations'
 
     id = Column(Integer, primary_key=True)
