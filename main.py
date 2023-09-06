@@ -24,17 +24,21 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 try:
-
+    
+    # Query Methods.
     users = session.query(User).all()
     print("All Userd:")
     for user in users:
         print(f"User ID: {user.id}, Username: {user.username}, Email: {user.email}")
 
-    
+    # Insert Methods.
     new_user = User(username='new_user', email='new_user@example.com')
     session.add(new_user)
     session.commit()
     print("New user added with ID:", new_user.id)
+
+    # Update Records.
+    user_to_update = session.query(User).filter_by(username='new_user').first()
 
 except Exception as e:
     print("Error:", str(e))
