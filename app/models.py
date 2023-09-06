@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, UniqueConstraint
 from sqlalchemy.orm import relationship
 from . import Base
 
@@ -22,6 +22,8 @@ class Bottle(Base):
     bottles_recycled = Column(Integer, nullable=False, default=0)
 
     user = relationship('User', back_populates='bottles')
+
+    UniqueConstraint('users.id', 'bottles_recycled', name='unique_user_bottles')
 
 class Tree(Base):
     __tablename__ = 'bottles'
