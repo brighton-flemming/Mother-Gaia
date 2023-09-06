@@ -30,6 +30,12 @@ try:
     for user in users:
         print(f"User ID: {user.id}, Username: {user.username}, Email: {user.email}")
 
+    
+    new_user = User(username='new_user', email='new_user@example.com')
+    session.add(new_user)
+    session.commit()
+    print("New user added with ID:", new_user.id)
+
 except Exception as e:
     print("Error:", str(e))
 finally:
