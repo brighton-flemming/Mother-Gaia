@@ -37,10 +37,28 @@ session = Session()
 
 
 try:
+
+    users_data = [
+        {'username': 'Bilbo Boggins', 'age': 24, 'email' : 'bilbo@hobbit.com'},
+         {'username': 'Tony Rogers', 'age': 30, 'email' : 'rogers@hobbit.com'},
+          {'username': 'Eobard Allan', 'age': 19, 'email' : 'eobard@hobbit.com'},
+           {'username': 'Bruce Carpenter', 'age': 56, 'email' : 'carpenter@hobbit.com'},
+            {'username': 'GreenActivist11', 'age': 16, 'email' : 'activist@hobbit.com'},
+             {'username': 'GaiaGuardian', 'age': 67, 'email' : 'guardian@hobbit.com'},
+              {'username': 'NatureLover', 'age': 45, 'email' : 'nature@hobbit.com'},
+               {'username': 'Steve Jobless', 'age': 79, 'email' : 'steve@hobbit.com'},
+    ]
+
+    for data in users_data:
+        new_user = User(username=data['username'], age=data['age'], email=['email'])
+        session.add(new_user)
+        session.commit()
+
+
     
     # Query Methods.
     users = session.query(User).all()
-    print("All Userd:")
+    print("All Users:")
     for user in users:
         print(f"User ID: {user.id}, Username: {user.username}, Age: {user.age},  Email: {user.email}")
 
