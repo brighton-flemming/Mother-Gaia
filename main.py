@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import  User, Tree, Bottle, Recommendation
+from app.calculations import calculate_bottle_statistics, calculate_tree_statistics
 import argparse
 from sqlalchemy.ext.declarative import declarative_base
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Mother Gaia CLI')
@@ -54,6 +56,23 @@ try:
         session.delete(user_to_delete)
         session.commit()
         print("User deleted!")
+
+    # Calculate and display tree statistics
+    user_id = 1
+    tree_stats = calculate_tree_statistics(session, user_id)
+    print("\nTree Statistics:")
+    print(f"Trees Planted: {tree_stats['trees_planted']}")
+    print(f"Trees Cut Down: {tree_stats['trees_cut_down']}")
+    print(f"Net Effect: {tree_stats['net_effect']}")
+    print(f"Message: {tree_stats['message']}")
+
+    # Calculate and display bottle statistics
+    bottle_stats = calculate_bottle_statistics(session, user_id)
+    print("\nBottle Statistics:")
+    print(f"Bottles Recycled: {bottle_stats['bottles_recycled']}")
+    print(f"Bottles Disposed: {bottle_stats['bottles_disposed']}")
+    print(f"Trash Effect: {bottle_stats['trash_effect']}")
+    print(f"Message: {bottle_stats['message']}")
 
 except Exception as e:
     print("Error:", str(e))
