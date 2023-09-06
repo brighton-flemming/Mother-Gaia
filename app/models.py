@@ -26,3 +26,18 @@ class Tree(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     trees_planted = Column(Integer, nullable=False, default=0)
 
+    user = relationship('User', back_populates='trees')
+
+class Recommendations(Base):
+    __tablename__ = 'recommendations'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    recommendation_text = Column(String(200), nullable=False)
+
+    user = relationship('User', back_populates='trees')
+
+
+
+
+
