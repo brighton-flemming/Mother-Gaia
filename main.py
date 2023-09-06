@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from app.models import  User, Tree, Bottle, Recommendation
 from app.calculations import calculate_bottle_statistics, calculate_tree_statistics
 import argparse
+import random
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -58,6 +59,15 @@ try:
         new_user = User(username=data['username'], age=data['age'], email=data['email'])
         session.add(new_user)
         session.commit()
+
+    # Generate a list of unique ages for multiple users (in this case, 10 users)
+    unique_ages = [random.randint(18, 60) for _ in range(10)]
+
+# Insert users with unique ages into the database
+    for age in unique_ages:
+       new_user = User(username='Bilbo Boggins', age=age, email='bilbo@hobbit.com')
+       session.add(new_user)
+       session.commit()
 
   
     # Query Methods.
