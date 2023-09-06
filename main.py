@@ -50,12 +50,13 @@ try:
     ]
 
     for data in users_data:
-        new_user = User(username=data['username'], age=data['age'], email=['email'])
+        new_user = User(username=data['username'], age=data['age'], email=data['email'])
         session.add(new_user)
         session.commit()
 
+    users = session.query
 
-    
+
     # Query Methods.
     users = session.query(User).all()
     print("All Users:")
@@ -63,7 +64,7 @@ try:
         print(f"User ID: {user.id}, Username: {user.username}, Age: {user.age},  Email: {user.email}")
 
     # Insert Methods.
-    new_user = User(username='new_user', age= 24 ,email='new_user@example.com')
+    new_user = User(username='new_user', age= 20 ,email='new_user@example.com')
     session.add(new_user)
     session.commit()
     print("New user added with ID:", new_user.id)
