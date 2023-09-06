@@ -11,9 +11,9 @@ class User(Base):
     age = Column(Integer, nullable=False,unique=True)
     email = Column(String, nullable=True)
 
-    bottles = relationship('Bottle', back_populates='user')
-    trees = relationship('Tree', back_populates='user')
-    recommendations = relationship('Recommendation', back_populates='user')
+    bottles = relationship('Bottle', back_populates='users')
+    trees = relationship('Tree', back_populates='users')
+    recommendations = relationship('Recommendation', back_populates='users')
 
 class Bottle(Base):
     __tablename__ = 'bottles'
@@ -23,7 +23,7 @@ class Bottle(Base):
     user_id =  Column(Integer, ForeignKey('users.id'), nullable=False)
     bottles_recycled = Column(Integer, nullable=False, default=0)
 
-    user = relationship('User', back_populates='bottles')
+    users = relationship('User', back_populates='bottles')
 
     UniqueConstraint('users.id', 'bottles_recycled', name='unique_user_bottles')
 
@@ -33,7 +33,7 @@ class Tree(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     trees_planted = Column(Integer, nullable=False, default=0)
 
-    user = relationship('User', back_populates='trees')
+    users = relationship('User', back_populates='trees')
 
 class Recommendation(Base):
     __tablename__ = 'recommendations'
@@ -42,7 +42,7 @@ class Recommendation(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     recommendation_text = Column(Text, nullable=False)
 
-    user = relationship('User', back_populates='recommendations')
+    users = relationship('User', back_populates='recommendations')
 
 
 

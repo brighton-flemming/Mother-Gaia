@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import  User, Tree, Bottle, Recommendation
 import argparse
+from sqlalchemy.ext.declarative import declarative_base
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Mother Gaia CLI')
@@ -20,8 +21,11 @@ elif env_mode == 'test':
     database_uri = 'sqlite:///test_user.db'
 
 engine = create_engine(database_uri)
+Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
+
+Base.metadata.create_all(engine)
 
 try:
     
