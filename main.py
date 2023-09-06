@@ -39,6 +39,7 @@ session = Session()
 
 try:
 
+
     users_data = [
         {'username': 'Bilbo Boggins', 'age': 24, 'email' : 'bilbo@hobbit.com'},
          {'username': 'Tony Rogers', 'age': 30, 'email' : 'rogers@hobbit.com'},
@@ -48,12 +49,13 @@ try:
              {'username': 'GaiaGuardian', 'age': 67, 'email' : 'guardian@hobbit.com'},
               {'username': 'NatureLover', 'age': 45, 'email' : 'nature@hobbit.com'},
                {'username': 'Steve Jobless', 'age': 79, 'email' : 'steve@hobbit.com'},
-                {'username': 'Patrick Tentacles', 'age': 52, 'email' : 'tentacles@hobbit.com'},
-                 {'username': 'Elon Tusk', 'age': 30, 'email' : 'tusk@hobbit.com'},
-                  {'username': 'Eric Myers', 'age': 14, 'email' : 'myers@hobbit.com'},
-                   {'username': 'Slim Jim', 'age': 22, 'email' : 'slim@hobbit.com'},
-                
+                {'username': 'Slim Jim', 'age': 22, 'email' : 'slim@hobbit.com'},
+                #  {'username': 'Patrick Tentacles', 'age': 52, 'email' : 'tentacles@hobbit.com'},
+                #   {'username': 'Elon Tusk', 'age': 30, 'email' : 'tusk@hobbit.com'},
+                #    {'username': 'Eric Myers', 'age': 14, 'email' : 'myers@hobbit.com'},
+                  
     ]
+
 
     for data in users_data:
         new_user = User(username=data['username'], age=data['age'], email=data['email'])
@@ -97,6 +99,25 @@ try:
         print("User deleted!")
 
     # Calculate and display tree statistics
+
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+    tree1 = Tree(user_id=1, action='planted')
+
+
+
+
+
     user_id = 1
     tree_stats = calculate_tree_statistics(session, user_id)
     print("\nTree Statistics:")
@@ -106,6 +127,23 @@ try:
     print(f"Message: {tree_stats['message']}")
 
     # Calculate and display bottle statistics
+
+    bottle1 = Bottle(user_id=1, action='recycled')
+    bottle2 = Bottle(user_id=2, action='disposed')
+    bottle3 = Bottle(user_id=4, action='recycled')
+    bottle4 = Bottle(user_id=4, action='recycled')
+    bottle5 = Bottle(user_id=3, action='disposed')
+    bottle6 = Bottle(user_id=7, action='recycled')
+    bottle7 = Bottle(user_id=5, action='recycled')
+    bottle8 = Bottle(user_id=6, action='recycled')
+    bottle9 = Bottle(user_id=5, action='disposed')
+    bottle10 = Bottle(user_id=8, action='recycled')
+    bottle11 = Bottle(user_id=1, action='disposed')
+    bottle12 = Bottle(user_id=3, action='disposed')
+
+    session.add_all([bottle1, bottle2, bottle3, bottle4, bottle5, bottle6, bottle7, bottle8, bottle9])
+    session.commit()
+
     bottle_stats = calculate_bottle_statistics(session, user_id)
     print("\nBottle Statistics:")
     print(f"Bottles Recycled: {bottle_stats['bottles_recycled']}")
