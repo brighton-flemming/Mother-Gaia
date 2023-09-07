@@ -342,7 +342,7 @@ def calculate_statistics(ctx):
     finally:
         session.close()
 
-@cli.command
+@cli.command()
 @click.option('--username', prompt='Enter username', help='Username of the user to add')
 @click.option('--age', prompt='Enter age', help='Age of the user to add')
 @click.option('--email', prompt='Enter email', help='Email of the user to add')
@@ -358,7 +358,7 @@ def add_user(ctx, username, age, email):
     finally:
         session.close()
 
-@cli.command
+@cli.command()
 @click.option('--username', prompt='Enter username', help='Username of the user to delete')
 @click.pass_context
 def delete_user(ctx, username):
@@ -375,6 +375,28 @@ def delete_user(ctx, username):
         click.echo(f"Error: {str(e)}")
     finally:
         session.close()
+
+@cli.command()
+@click.option('--username', prompt='Enter username', help='Username of the user to update')
+@click.option('--new-age', prompt='Enter new age', type=int, help='New age for the user')
+@click.option('--new-email', prompt='Enter new email', help='New email for the user')
+@click.pass_context
+def update_user(ctx, username, new_age, new_email):
+    try:
+        user_to_update = session.query(User).filter_by(username=username).first()
+        if user_to_update:
+            user_to_update.age = new_age
+            user_to_update.email = new_email
+            session.commit()
+            click.echo(f"User '{username}' updated successfully!")
+        else:
+            click.echo(f"User '{username}' not found.")
+    except Exception as e:
+        session.rollback()
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
+
 
 if __name__ == '__main__':
     cli(obj={})
