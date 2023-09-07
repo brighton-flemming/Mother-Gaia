@@ -18,42 +18,42 @@ pip install -r requirements.txt
 # Usage
 Explain how to use the Mother-Gaia application. Provide clear and concise instructions for common tasks. Include examples to help users get started.
 
-- - Adding a User
+- Adding a User
 bash
 Copy code
 python main.py add-user --username "John Doe" --age 30 --email "john@example.com"
 
-- - Updating a User
+-  Updating a User
 bash
 Copy code
 python main.py update-user --user-id 1 --age 35 --email "john.doe@example.com"
 
-- - Deleting a User
+-  Deleting a User
 bash
 Copy code
 python main.py delete-user --user-id 1
 
-- - Calculating Statistics
+-  Calculating Statistics
 bash
 Copy code
 python main.py calculate-statistics --user-id 1
 
-- - Adding Tree Planting Data
+-  Adding Tree Planting Data
 bash
 Copy code
 python main.py add-tree --user-id 1 --action "planted" --trees-planted 10
 
-- - Adding Bottle Recycling Data
+-  Adding Bottle Recycling Data
 bash
 Copy code
 python main.py add-bottle --user-id 1 --action "recycled" --bottles-recycled 50 --bottles-disposed 10
 
-- - Adding Recommendations
+-  Adding Recommendations
 bash
 Copy code
 python main.py add-recommendations --user-id 1 "Consider planting more trees" "Try recycling more"
 
-- - Getting Recommendations
+-  Getting Recommendations
 bash
 Copy code
 python main.py get-recommendations --user-id 1
