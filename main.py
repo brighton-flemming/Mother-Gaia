@@ -231,33 +231,6 @@ def add_tree(ctx, user_id, action, trees):
     finally:
         session.close()
 
-@cli.command()
-@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID to generate recommendations')
-@click.pass_context
-def generate_recommendations(ctx, user_id):
-    try:
-        net_effect = calculate_tree_statistics(session=session, user_id=user_id)
-        trash_effect = calculate_bottle_statistics(session=session, user_id=user_id)
-
-        recommendations = []
-
-        if isinstance(net_effect, (int, float)) and net_effect < 0:
-            recommendations.append("Consider having a green thumb to improve your net_effect.")
-        
-        if isinstance(trash_effect, (int, float)) and trash_effect < 0:
-            recommendations.append("Try minding the environment more by disposing your bottles correctly. Try recycling maybe?")
-        
-        for recommendation_text in recommendations:
-            recommendation = Recommendation(user_id=user_id, recommendation_text=recommendation_text)
-            session.add(recommendation)
-
-        session.commit()
-        click.echo("Recommendations generated successfully.")
-    except Exception as e:
-        click.echo(f"Error: {str(e)}")
-    finally:
-        session.close()
-
 
 @cli.command()
 @click.option('--user-id', prompt='Enter user ID', type=int, help='User ID to fetch recommendations')
