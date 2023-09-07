@@ -93,6 +93,7 @@ def init_db(ctx):
 
 
 @cli.command()
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID statistics calculation')
 @click.pass_context
 def calculate_statistics(ctx):
     user_id = ctx.obj['user_id']
@@ -185,11 +186,11 @@ def update_user(ctx, username, new_age, new_email):
 def add_bottle(ctx, user_id, action, bottles_recycled, bottles_disposed):
     try:
         if action == 'recycled':
-            net_effect = bottles_recycled - bottles_disposed
+            trash_effect = bottles_recycled - bottles_disposed
         else:
-            net_effect = bottles_disposed - bottles_recycled
+            trash_effect = bottles_disposed - bottles_recycled
         
-        new_bottle_data = Bottle(user_id=user_id, action=action, bottles_recycled=bottles_recycled, bottles_disposed=bottles_disposed, net_effect=net_effect)
+        new_bottle_data = Bottle(user_id=user_id, action=action, bottles_recycled=bottles_recycled, bottles_disposed=bottles_disposed, trash_effect=trash_effect)
         session.add(new_bottle_data)
         session.commit()
         click.echo("Bottle instance added successfully!")

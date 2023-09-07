@@ -24,6 +24,7 @@ class Bottle(Base):
     action = Column(String)
     bottles_recycled = Column(Integer, nullable=False, default=0)
     bottles_disposed = Column(Integer, nullable=False, default=0)
+    trash_effect = Column(Integer)
 
     users = relationship('User', back_populates='bottles')
 
