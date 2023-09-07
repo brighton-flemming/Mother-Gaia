@@ -178,7 +178,7 @@ def update_user(ctx, username, new_age, new_email):
 
 @cli.command()
 @click.option('--user-id', prompt='Enter user', help='User ID for the bottle action')
-@click.option('--action', prompt='Enter action(recycled/disposed)', type=click.Choice(['recycled', 'disposed']), help='Action performed with the botttles')
+@click.option('--action', prompt='Enter action', type=click.Choice(['recycled', 'disposed']), help='Action performed with the botttles')
 @click.option('--bottles-recycled', prompt='Enter number of bottles recycled', type=int, help='Number of bottles recycled')
 @click.option('--bottles-disposed', prompt='Enter number of bottles disposed', type=int, help='Number of bottles disposed')
 @click.pass_context
