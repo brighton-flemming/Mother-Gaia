@@ -3,7 +3,7 @@ import click
 import string
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models import User, Tree, Bottle
+from app.models import User, Tree, Bottle, Recommendation
 from app.calculations import calculate_bottle_statistics, calculate_tree_statistics
 
 engine = create_engine('sqlite:///user.db')
@@ -231,5 +231,71 @@ def add_tree(ctx, user_id, action, trees):
     finally:
         session.close()
 
+@cli.command()
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID to generate recommendations')
+@click.pass_context
+def generate_recommendations(ctx, user_id):
+    try:
+        net_effect = calculate_tree_statistics(session=session, user_id=user_id)
+        trash_effect = calculate_bottle_statistics(session=session, user_id=user_id)
+
+        recommendations = []
+
+        if isinstance(net_effect, (int, float)) and net_effect < 0:
+            recommendations.append("Consider having a green thumb to improve your net_effect.")
+        
+        if isinstance(trash_effect, (int, float)) and trash_effect < 0:
+            recommendations.append("Try minding the environment more by disposing your bottles correctly. Try recycling maybe?")
+        
+        for recommendation_text in recommendations:
+            recommendation = Recommendation(user_id=user_id, recommendation_text=recommendation_text)
+            session.add(recommendation)
+
+        session.commit()
+        click.echo("Recommendations generated successfully.")
+    except Exception as e:
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
+
+
+@cli.command()
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID to fetch recommendations')
+@click.pass_context
+def get_recommendations(ctx, user_id):
+    try:
+        recommendations = session.query(Recommendation).filter_by(user_id=user_id).all()
+
+        if recommendations:
+            click.echo("\nRecommendations")
+            for recommendation in recommendations:
+                click.echo(f"- {recommendation.recommendation_text}")
+        else:
+            click.echo("No recommendations found for the specified user.")
+    except Exception as e:
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
+
+@cli.command()
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID to get recommendations')
+@click.argument('recommendations', nargs=-1)
+def add_recommendations(user_id, recommendations):
+    try:
+        # Add recommendations to the database
+        for recommendation_text in recommendations:
+            recommendation = Recommendation(user_id=user_id, recommendation_text=recommendation_text)
+            session.add(recommendation)
+
+        session.commit()
+        print("Recommendations added successfully.")
+    except Exception as e:
+        print(f"Error: {str(e)}")
+    finally:
+        session.close()
+
+
+
 if __name__ == '__main__':
+    cli.add_command(add_recommendations)
     cli(obj={})
