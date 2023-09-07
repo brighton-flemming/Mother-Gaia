@@ -350,7 +350,8 @@ def calculate_statistics(ctx):
 def add_user(ctx, username, age, email):
     try:
         new_user = User(username=username, age=age, email=email)
-        session.commit(new_user)
+        session.add(new_user)
+        session.commit()
         click.echo(f"User '{username}' added successfully!")
     except Exception as e:
         session.rollback()
