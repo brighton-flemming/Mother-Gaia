@@ -7,9 +7,9 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(50), nullable=False, unique=True)
-    age = Column(Integer, nullable=False,unique=True)
-    email = Column(String, nullable=True)
+    username = Column(String, unique=True, nullable=False)
+    age = Column(Integer, nullable=False)
+    email = Column(String, nullable=False)
 
     bottles = relationship('Bottle', back_populates='users')
     trees = relationship('Tree', back_populates='users')
@@ -21,8 +21,9 @@ class Bottle(Base):
 
     id = Column(Integer, primary_key=True)
     user_id =  Column(Integer, ForeignKey('users.id'), nullable=False)
-    action = Column(String, nulllable=False)
+    action = Column(String)
     bottles_recycled = Column(Integer, nullable=False, default=0)
+    bottles_disposed = Column(Integer, nullable=False, default=0)
 
     users = relationship('User', back_populates='bottles')
 
@@ -34,6 +35,7 @@ class Tree(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     action = Column(String,  nullable=True)
     trees_planted = Column(Integer, nullable=False, default=0)
+    trees_cut_down = Column(Integer, nullable=False, default=0)
 
     users = relationship('User', back_populates='trees')
 

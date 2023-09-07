@@ -24,6 +24,8 @@ def calculate_tree_statistics(session:Session, user_id: int) -> dict:
     }
 
     return trees_statistics
+    
+    
 
 def calculate_bottle_statistics(session:Session, user_id: int) -> dict:
 
