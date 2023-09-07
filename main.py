@@ -200,5 +200,10 @@ def add_bottle(ctx, user_id, action, bottles_recycled, bottles_disposed):
     finally:
         session.close()
 
+
+@cli.command()
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID for the tree action')
+@click.option('--action' prompt='Enter action', type=click.Choice(['planted', 'cut down']), help='Action performed with the tree')
+
 if __name__ == '__main__':
     cli(obj={})
