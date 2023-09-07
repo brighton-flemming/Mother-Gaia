@@ -41,7 +41,6 @@ def init_db(ctx):
     session = Session()
 
     try:
-        # Create and populate the User table
         users_data = [
             # {'username': 'Bilbo Boggins', 'age': 25, 'email': 'bilbo@hobbit.com'},
             # Add more user data here
