@@ -225,6 +225,7 @@
 
 import random
 import click
+import string
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Tree, Bottle
@@ -234,6 +235,12 @@ engine = create_engine('sqlite:///user.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
+def generate_random_username():
+    return ''.join(random.choice(string.ascii_letters) for _ in range(10))
+
+def generate_random_email():
+    domain = random.choice(['gmail.com', 'yahoo.com', 'hotmail.com', 'hobbit.com', 'ballsdeep.com'])
+    return f'{generate_random_username()}@{domain}'
 
 @click.group()
 @click.option('--env', type=click.Choice(['development', 'test']), default='development', help='Set the application environment mode (default: development)')
@@ -261,7 +268,7 @@ def init_db(ctx):
     try:
         # Create and populate the User table
         users_data = [
-            {'username': 'Bilbo Boggins', 'age': 25, 'email': 'bilbo@hobbit.com'},
+            # {'username': 'Bilbo Boggins', 'age': 25, 'email': 'bilbo@hobbit.com'},
             # Add more user data here
         ]
 
@@ -278,8 +285,24 @@ def init_db(ctx):
 
         # Insert users with unique ages into the database
         unique_ages = [random.randint(18, 60) for _ in range(10)]
+
+        used_usernames = set()
+        used_emails = set()
+
         for age in unique_ages:
-            new_user = User(username='Bilbo Boggins', age=age, email='bilbo@hobbit.com')
+            while True:
+                new_username = generate_random_username()
+                if new_username not in used_usernames:
+                    used_usernames.add(new_username)
+                    break
+            
+            while True:
+                new_email = generate_random_email()
+                if new_email not in used_emails:
+                    used_emails.add(new_email)
+                    break
+
+            new_user = User(username=new_username, age=age, email=new_email)
             session.add(new_user)
             session.commit()
 
