@@ -358,6 +358,23 @@ def add_user(ctx, username, age, email):
     finally:
         session.close()
 
+@cli.command
+@click.option('--username', prompt='Enter username', help='Username of the user to delete')
+@click.pass_context
+def delete_user(ctx, username):
+    try:
+        user_to_delete = session.query(User).filter_by(username=username).first()
+        if user_to_delete:
+            session.delete(user_to_delete)
+            session.commit()
+            click.echo(f"User '{username}' deleted successfully!")
+        else:
+            click.echo(f"User 'username' not found.")
+    except Exception as e:
+        session.rollback()
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
 
 if __name__ == '__main__':
     cli(obj={})
