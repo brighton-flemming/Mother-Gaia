@@ -342,6 +342,22 @@ def calculate_statistics(ctx):
     finally:
         session.close()
 
+@cli.command
+@click.option('--username', prompt='Enter username', help='Username of the user to add')
+@click.option('--age', prompt='Enter age', help='Age of the user to add')
+@click.option('--email', prompt='Enter email', help='Email of the user to add')
+@click.pass_context
+def add_user(ctx, username, age, email):
+    try:
+        new_user = User(username=username, age=age, email=email)
+        session.commit()
+        click.echo(f"User '{username}' added successfully!")
+    except Exception as e:
+        session.rollback()
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
+
 
 if __name__ == '__main__':
     cli(obj={})
