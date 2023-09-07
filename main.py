@@ -176,5 +176,28 @@ def update_user(ctx, username, new_age, new_email):
         session.close()
 
 
+@cli.command()
+@click.option('--user-id', prompt='Enter user', type=int, help='User ID for the bottle action')
+@click.option('--action', prompt='Enter action(recycled/disposed)', type=click.Choice(['recycled', 'disposed']), help='Action performed with the botttles')
+@click.option('--bottles-recycled', prompt='Enter number of bottles recycled', type=int, help='Number of bottles recycled')
+@click.option('--bottles-disposed', prompt='Enter number of bottles disposed', type=int, help='Number of bottles disposed')
+@click.pass_context
+def add_bottle(ctx, user_id, action, bottles_recycled, bottles_disposed):
+    try:
+        if action == 'recycled':
+            net_effect = bottles_recycled - bottles_disposed
+        else:
+            net_effect = bottles_disposed - bottles_recycled
+        
+        new_bottle_data = Bottle(user_id=user_id, action=action, bottles_recycled=bottles_recycled, bottles_disposed=bottles_disposed, net_effect=net_effect)
+        session.add(new_bottle_data)
+        session.commit()
+        click.echo("Bottle instance added successfully!")
+    except Exception as e:
+        session.rollback()
+        click.echo(f"Error: {str(e)}")
+    finally:
+        session.close()
+
 if __name__ == '__main__':
     cli(obj={})
