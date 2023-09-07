@@ -1,5 +1,3 @@
-
-
 import random
 import click
 import string
@@ -178,7 +176,7 @@ def update_user(ctx, username, new_age, new_email):
 
 
 @cli.command()
-@click.option('--user-id', prompt='Enter user', help='User ID for the bottle action')
+@click.option('--user-id', prompt='Enter user ID', type=int, help='User ID for the bottle action')
 @click.option('--action', prompt='Enter action', type=click.Choice(['recycled', 'disposed']), help='Action performed with the botttles')
 @click.option('--bottles-recycled', prompt='Enter number of bottles recycled', type=int, help='Number of bottles recycled')
 @click.option('--bottles-disposed', prompt='Enter number of bottles disposed', type=int, help='Number of bottles disposed')
@@ -203,7 +201,36 @@ def add_bottle(ctx, user_id, action, bottles_recycled, bottles_disposed):
 
 @cli.command()
 @click.option('--user-id', prompt='Enter user ID', type=int, help='User ID for the tree action')
-@click.option('--action' prompt='Enter action', type=click.Choice(['planted', 'cut down']), help='Action performed with the tree')
+@click.option('--action', prompt='Enter action', type=click.Choice(['planted', 'cut down']), help='Action performed with the tree')
+@click.option('--trees', prompt='Enter number of trees', type=int, help='Number of trees involved in the action')
+@click.pass_context
+def add_tree(ctx, user_id, action, trees):
+    try:
+        if action == 'planted':
+            trees_planted = trees
+            trees_cut_down = 0
+        elif action == 'cut down':
+            trees_planted = 0
+            trees_cut_down = trees
+
+        net_effect = trees_planted - trees_cut_down
+
+        new_tree_data = Tree(
+            user_id=user_id,
+            action=action,
+            trees_planted=trees_planted,
+            trees_cut_down=trees_cut_down,
+            net_effect=net_effect
+        )
+
+        session.add(new_tree_data)
+        session.commit()
+        click.echo("Tree instance added successfully!")
+    except Exception as e:
+        session.rollback()
+        click.echo(f"Echo: {str(e)}")
+    finally:
+        session.close()
 
 if __name__ == '__main__':
     cli(obj={})

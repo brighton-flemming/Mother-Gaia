@@ -37,6 +37,7 @@ class Tree(Base):
     action = Column(String,  nullable=True)
     trees_planted = Column(Integer, nullable=False, default=0)
     trees_cut_down = Column(Integer, nullable=False, default=0)
+    net_effect = Column(Integer, default=0)
 
     users = relationship('User', back_populates='trees')
 
