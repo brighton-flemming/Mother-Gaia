@@ -1,11 +1,12 @@
 
 from app.models import User, Tree, Bottle
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 def calculate_tree_statistics(session:Session, user_id: int) -> dict:
 
-    trees_planted = session.query(Tree).filter_by(user_id=user_id, action='planted').count()
-    trees_cut_down = session.query(Tree).filter_by(user_id=user_id, action='cut down').count()
+    trees_planted = session.query(func.sum(Tree.trees_planted)).filter_by(user_id=user_id, action='planted').scalar() or 0
+    trees_cut_down = session.query(func.sum(Tree.trees_cut_down)).filter_by(user_id=user_id, action='cut down').scalar() or 0
     net_effect = trees_planted - trees_cut_down
 
     if net_effect > 0:
@@ -29,8 +30,8 @@ def calculate_tree_statistics(session:Session, user_id: int) -> dict:
 
 def calculate_bottle_statistics(session:Session, user_id: int) -> dict:
 
-    bottles_recycled = session.query(Bottle).filter_by(user_id=user_id, action='recycled').count()
-    bottles_disposed = session.query(Bottle).filter_by(user_id=user_id, action='disposed').count()
+    bottles_recycled = session.query(func.sum(Bottle.bottles_recycled)).filter_by(user_id=user_id, action='recycled').scalar() or 0
+    bottles_disposed = session.query(func.sum(Bottle.bottles_disposed)).filter_by(user_id=user_id, action='disposed').scalar() or 0
     trash_effect = bottles_recycled - bottles_disposed
 
     if trash_effect > 0 :

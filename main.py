@@ -95,7 +95,7 @@ def init_db(ctx):
 @cli.command()
 @click.option('--user-id', prompt='Enter user ID', type=int, help='User ID statistics calculation')
 @click.pass_context
-def calculate_statistics(ctx):
+def calculate_statistics(ctx, user_id):
     user_id = ctx.obj['user_id']
 
     try:
